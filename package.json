@@ -1,0 +1,24 @@
+{
+	"name": "course-express",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon index.js",
+		"start": "node index.js",
+		"lint": "eslint",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "Alejandro <adotorca@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"eslint": "^8.21.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"prettier": "^2.7.1"
+	},
+	"dependencies": {
+		"express": "^4.18.1"
+	}
+}
