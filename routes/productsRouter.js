@@ -14,15 +14,13 @@ productsRouter.get('/', async (req, res) => {
 	res.json({ size: parseInt(size), products });
 });
 //% GET :id -> params
-productsRouter.get('/:id', async (req, res) => {
+productsRouter.get('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const product = await service.findOne(id);
 		res.status(200).json(product);
 	} catch (error) {
-		res.status(404).json({
-			message: error.message,
-		});
+		next(error);
 	}
 });
 
@@ -37,7 +35,7 @@ productsRouter.post('/', async (req, res) => {
 });
 
 //% PATCH
-productsRouter.patch('/:id', async (req, res) => {
+productsRouter.patch('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const body = req.body;
@@ -47,14 +45,12 @@ productsRouter.patch('/:id', async (req, res) => {
 			data: product,
 		});
 	} catch (error) {
-		res.status(404).json({
-			message: error.message,
-		});
+		next(error);
 	}
 });
 
 //% DELETE
-productsRouter.delete('/:id', async (req, res) => {
+productsRouter.delete('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const productId = await service.delete(id);
@@ -63,9 +59,7 @@ productsRouter.delete('/:id', async (req, res) => {
 			data: productId,
 		});
 	} catch (error) {
-		res.status(404).json({
-			message: error.message,
-		});
+		next(error);
 	}
 });
 
