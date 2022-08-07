@@ -16,13 +16,6 @@ class ProductService {
 			});
 		}
 	}
-	esperar(seg) {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(seg + 'ms');
-			}, seg);
-		});
-	}
 	async create(data) {
 		const newProduct = {
 			id: faker.datatype.number({ min: 100, max: 200 }),
@@ -32,13 +25,13 @@ class ProductService {
 		return newProduct;
 	}
 	async find(size) {
-		const test = await this.esperar(3000);
-		console.log(test);
 		if (size == this.size) return this.products;
 		else return this.products.slice(0, size);
 	}
 	async findOne(id) {
-		return this.products.find((item) => item.id == id);
+		const product = this.products.find((item) => item.id == id);
+		if (product) return product;
+		else throw new Error('Product not found');
 	}
 	async update(id, changes) {
 		const index = this.products.findIndex((item) => item.id == id);

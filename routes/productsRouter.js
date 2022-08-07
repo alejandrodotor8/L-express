@@ -15,13 +15,13 @@ productsRouter.get('/', async (req, res) => {
 });
 //% GET :id -> params
 productsRouter.get('/:id', async (req, res) => {
-	const { id } = req.params;
-	const product = await service.findOne(id);
-	if (product) {
+	try {
+		const { id } = req.params;
+		const product = await service.findOne(id);
 		res.status(200).json(product);
-	} else {
+	} catch (error) {
 		res.status(404).json({
-			message: 'Not found',
+			message: error.message,
 		});
 	}
 });
@@ -38,23 +38,35 @@ productsRouter.post('/', async (req, res) => {
 
 //% PATCH
 productsRouter.patch('/:id', async (req, res) => {
-	const { id } = req.params;
-	const body = req.body;
-	const product = await service.update(id, body);
-	res.json({
-		message: 'Updated',
-		data: product,
-	});
+	try {
+		const { id } = req.params;
+		const body = req.body;
+		const product = await service.update(id, body);
+		res.json({
+			message: 'Updated',
+			data: product,
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: error.message,
+		});
+	}
 });
 
 //% DELETE
 productsRouter.delete('/:id', async (req, res) => {
-	const { id } = req.params;
-	const productId = await service.delete(id);
-	res.json({
-		message: 'Deleted',
-		data: productId,
-	});
+	try {
+		const { id } = req.params;
+		const productId = await service.delete(id);
+		res.json({
+			message: 'Deleted',
+			data: productId,
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: error.message,
+		});
+	}
 });
 
 module.exports = productsRouter;
