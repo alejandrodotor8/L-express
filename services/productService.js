@@ -24,6 +24,7 @@ class ProductService {
 			...data,
 		};
 		this.products.push(newProduct);
+		this.size = this.products.length;
 		return newProduct;
 	}
 	async find(size) {
