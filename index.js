@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const corsWhiteList = ['https://alejandrodotor.com'];
+const corsWhiteList = ['https://alejandrodotor.com', 'http://localhost:8080'];
 
 const corsOptions = {
 	origin: (origin, callBack) => {
