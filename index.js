@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const routerApi = require('./routes');
 
 //Middleware
@@ -15,6 +16,18 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 routerApi(app);
+
+const corsWhiteList = ['http://localhost:8080', 'https://alejandrodotor.com'];
+const corsOptions = {
+	origin: (origin, callBack) => {
+		if (corsWhiteList.includes(origin)) {
+			callBack(null, true);
+		} else {
+			callBack(new Error('Dominio no permitido'));
+		}
+	},
+};
+app.use(cors(corsOptions));
 
 app.use(logErrors);
 app.use(errorHandler);
