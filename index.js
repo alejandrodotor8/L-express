@@ -20,8 +20,8 @@ routerApi(app);
 const corsWhiteList = ['http://127.0.0.1:8080', 'https://alejandrodotor.com'];
 const corsOptions = {
 	origin: (origin, callBack) => {
+		console.log(origin);
 		if (corsWhiteList.includes(origin)) {
-			console.log(origin);
 			callBack(null, true);
 		} else {
 			callBack(new Error('Dominio no permitido'));
